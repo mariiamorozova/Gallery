@@ -7,6 +7,7 @@ platform :ios, '10.0'
 def available_pods
 #libs
     pod 'Kingfisher', '~> 4.0'
+    pod 'ReactiveKit'
 
 end
 

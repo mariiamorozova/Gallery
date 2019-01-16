@@ -21,6 +21,6 @@ class GalleryCell: UICollectionViewCell {
     
     func setup(withViewModel viewModel: GalleryCellViewModel) {
         self.viewModel = viewModel
-        self.imageView.setImage(with: viewModel.imageUrl, asTemplate: true)
+        self.imageView.setImage(with: viewModel.imageUrl)
     }
 }
