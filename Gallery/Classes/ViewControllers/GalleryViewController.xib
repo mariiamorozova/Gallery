@@ -21,7 +21,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="yFN-M4-tpc">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="yFN-M4-tpc">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="inB-37-Fpk">
@@ -36,7 +36,6 @@
                     </connections>
                 </collectionView>
             </subviews>
-            <color key="backgroundColor" red="0.98823529409999999" green="0.84705882349999995" blue="0.76470588240000004" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="yFN-M4-tpc" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Su2-hC-SFE"/>
                 <constraint firstItem="yFN-M4-tpc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="egv-NJ-Ace"/>

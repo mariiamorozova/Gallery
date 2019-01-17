@@ -17,11 +17,20 @@ class GalleryVCViewModel {
         return self.cellsData.count
     }
     
+    var showInfScroll = false
+    
+    fileprivate var pagination: APIPagination = APIPagination()
+    
     fileprivate var cellsData: [GalleryCellViewModel] = []
     
     // MARK: - Helpers
     
+    func loadData() {
+        self.performRequest()
+    }
+    
     func reloadData() {
+        self.pagination.page = 1
         self.performRequest()
     }
     
@@ -31,17 +40,22 @@ class GalleryVCViewModel {
     
     // MARK: - Request
     
-    private func performRequest() {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        APIProvider.getRecentPhotos(onCompletion: { (error: NSError?, flickrPhotos: [FlickrImage]?) -> Void in
+    fileprivate func performRequest() {
+        APIProvider.getRecentPhotos(pagination: self.pagination, onCompletion: { (error: NSError?,
+            flickrPhotos: [FlickrImage]?) -> Void in
             if error == nil {
 
                 guard let photos = flickrPhotos else {
                     self.recieveErrorSignal.next(error)
                     return
                 }
-        
-                self.cellsData.removeAll()
+                
+                if self.pagination.page == 1 {
+                    self.cellsData.removeAll()
+                }
+                
+                self.checkHasMore(by: photos.count)
+                self.pagination.next()
                 
                 for photo in photos {
                     let cellViewModel = GalleryCellViewModel(withModel: photo.photoUrl)
@@ -53,5 +67,11 @@ class GalleryVCViewModel {
                 self.recieveErrorSignal.next(error)
             }
         })
+    }
+
+    // MARK: - Private
+    
+    fileprivate func checkHasMore(by count: Int) {
+        self.showInfScroll = count == self.pagination.per
     }
 }

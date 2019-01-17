@@ -8,6 +8,7 @@
 
 import UIKit
 import Bond
+import UIScrollView_InfiniteScroll
 
 class GalleryViewController: UIViewController {
     
@@ -16,6 +17,7 @@ class GalleryViewController: UIViewController {
     let screenSize = UIScreen.main.bounds.size
     
     fileprivate var refreshControl = UIRefreshControl()
+    
     fileprivate var viewModel = GalleryVCViewModel()
     
     // MARK: - Lifecycle
@@ -60,19 +62,28 @@ class GalleryViewController: UIViewController {
             self.showErrorAlert()
             self.updateContent()
             }.dispose(in: self.bag)
+        
+        self.collectionView.setShouldShowInfiniteScrollHandler { [unowned self] (_) -> Bool in
+            return self.viewModel.showInfScroll && !self.refreshControl.isRefreshing
+        }
+        
+        self.collectionView.addInfiniteScroll { [unowned self] (_) in
+            self.viewModel.loadData()
+        }
     }
     
     // MARK: - Private
     
     fileprivate func updateContent() {
         DispatchQueue.main.async {
+            self.collectionView.finishInfiniteScroll()
             self.refreshControl.endRefreshing()
             self.refreshControl.isEnabled = true
             self.collectionView.reloadData()
         }
     }
     
-    private func showErrorAlert() {
+    fileprivate func showErrorAlert() {
         let alertController = UIAlertController(title: "Error", message: "", preferredStyle: .alert)
         let dismissAction = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
         alertController.addAction(dismissAction)

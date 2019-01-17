@@ -9,6 +9,9 @@ def available_pods
     pod 'Kingfisher', '~> 4.0'
     pod 'ReactiveKit'
     pod 'Bond', '~> 6.0'
+    
+#UI
+    pod 'UIScrollView-InfiniteScroll'
 
 end
 
