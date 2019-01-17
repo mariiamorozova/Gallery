@@ -17,7 +17,7 @@ struct APIPagination {
                 "per_page": self.per]
     }
     
-    init(page: Int = 1, per: Int = 15) {
+    init(page: Int = 1, per: Int = 25) {
         self.page = page
         self.per = per
     }
