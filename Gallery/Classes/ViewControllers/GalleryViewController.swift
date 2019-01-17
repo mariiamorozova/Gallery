@@ -12,6 +12,8 @@ class GalleryViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    let screenSize = UIScreen.main.bounds.size
+    
     fileprivate var refreshControl = UIRefreshControl()
     fileprivate var viewModel = GalleryVCViewModel()
     
@@ -103,6 +105,6 @@ extension GalleryViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 176, height: 230)
+        return CGSize(width: self.screenSize.width/2 - 5, height: self.screenSize.width/2 - 5)
     }
 }
