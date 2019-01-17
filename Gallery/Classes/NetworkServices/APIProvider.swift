@@ -39,7 +39,7 @@ class APIProvider {
                 
                 if let statusCode = results["code"] as? Int {
                     if statusCode == invalidAccessErrorCode {
-                        let invalidAccessError = NSError(domain: "flickr.api", code: statusCode, userInfo: nil)
+                        let invalidAccessError = NSError(domain: "com.flickr.api", code: statusCode, userInfo: nil)
                         onCompletion(invalidAccessError, nil)
                         return
                     }
