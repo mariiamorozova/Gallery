@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Bond
 
 class GalleryViewController: UIViewController {
     
@@ -31,8 +32,7 @@ class GalleryViewController: UIViewController {
         
         self.setupReactive()
         
-//        self.refreshControl.beginRefreshing()
-        
+        self.refreshControl.beginRefreshing()
         self.self.viewModel.reloadData()
     }
     
@@ -40,9 +40,9 @@ class GalleryViewController: UIViewController {
     
     fileprivate func setupReactive() {
         
-//        self.refreshControl.reactive.controlEvents(.valueChanged).observeNext { [unowned self] (_) in
-//            self.viewModel.reloadData()
-//            }.dispose(in: self.bag)
+        self.refreshControl.reactive.controlEvents(.valueChanged).observeNext { [unowned self] (_) in
+            self.viewModel.reloadData()
+            }.dispose(in: self.bag)
         
         self.viewModel.endedUpdatingContentSignal.observeNext { [weak self] _ in
             guard let `self` = self else {
@@ -65,10 +65,9 @@ class GalleryViewController: UIViewController {
     // MARK: - Private
     
     fileprivate func updateContent() {
-//        self.refreshControl.endRefreshing()
-//        self.refreshControl.isEnabled = true
-
         DispatchQueue.main.async {
+            self.refreshControl.endRefreshing()
+            self.refreshControl.isEnabled = true
             self.collectionView.reloadData()
         }
     }

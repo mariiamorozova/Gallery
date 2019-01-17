@@ -8,6 +8,7 @@ def available_pods
 #libs
     pod 'Kingfisher', '~> 4.0'
     pod 'ReactiveKit'
+    pod 'Bond', '~> 6.0'
 
 end
 
