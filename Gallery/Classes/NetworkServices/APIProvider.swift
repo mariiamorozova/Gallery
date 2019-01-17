@@ -33,7 +33,9 @@ class APIProvider {
             
             do {
                 let resultsDictionary = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: AnyObject]
-                guard let results = resultsDictionary else { return }
+                guard let results = resultsDictionary else {
+                    return
+                }
                 
                 if let statusCode = results["code"] as? Int {
                     if statusCode == invalidAccessErrorCode {

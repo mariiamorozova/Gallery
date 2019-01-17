@@ -42,30 +42,33 @@ class GalleryVCViewModel {
     
     fileprivate func performRequest() {
         APIProvider.getRecentPhotos(pagination: self.pagination, onCompletion: { (error: NSError?,
-            flickrPhotos: [FlickrImage]?) -> Void in
-            if error == nil {
-
-                guard let photos = flickrPhotos else {
-                    self.recieveErrorSignal.next(error)
-                    return
-                }
-                
-                if self.pagination.page == 1 {
-                    self.cellsData.removeAll()
-                }
-                
-                self.checkHasMore(by: photos.count)
-                self.pagination.next()
-                
-                for photo in photos {
-                    let cellViewModel = GalleryCellViewModel(withModel: photo.photoUrl)
-                    self.cellsData.append(cellViewModel)
-                }
-                self.endedUpdatingContentSignal.next(error)
-            } else {
+            flickrImages: [FlickrImage]?) -> Void in
+            
+            guard error == nil else {
                 self.cellsData.removeAll()
                 self.recieveErrorSignal.next(error)
+                return
             }
+        
+            guard let photos = flickrImages else {
+                self.recieveErrorSignal.next(error)
+                return
+            }
+            
+            if self.pagination.page == 1 {
+                self.cellsData.removeAll()
+            }
+            
+            self.checkHasMore(by: photos.count)
+            self.pagination.next()
+            
+            for photo in photos {
+                let cellViewModel = GalleryCellViewModel(withModel: photo.photoUrl)
+                self.cellsData.append(cellViewModel)
+            }
+            
+            self.endedUpdatingContentSignal.next(error)
+            
         })
     }
 
